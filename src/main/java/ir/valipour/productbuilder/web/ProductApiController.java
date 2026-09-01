@@ -11,8 +11,9 @@ import java.util.List;
 public class ProductApiController {
  private final ProductService service;
  public ProductApiController(ProductService service){this.service=service;}
- @GetMapping public List<Product> all(){return service.findAll();}
- @GetMapping("/{id}") public Product get(@PathVariable Long id){return service.get(id);}
- @PostMapping public ResponseEntity<Product> create(@RequestBody CreateProductRequest r){return ResponseEntity.ok(service.create(r.code(),r.name(),r.description()));}
+ @GetMapping public List<ProductResponse> all(){return service.findAll().stream().map(ProductResponse::from).toList();}
+ @GetMapping("/{id}") public ProductResponse get(@PathVariable Long id){return ProductResponse.from(service.get(id));}
+ @PostMapping public ResponseEntity<ProductResponse> create(@RequestBody CreateProductRequest r){return ResponseEntity.ok(ProductResponse.from(service.create(r.code(),r.name(),r.description())));}
  public record CreateProductRequest(String code,String name,String description){}
+ public record ProductResponse(Long id,String code,String name,String description,boolean active,int featureCount){static ProductResponse from(Product p){return new ProductResponse(p.getId(),p.getCode(),p.getName(),p.getDescription(),p.isActive(),p.getFeatures().size());}}
 }
