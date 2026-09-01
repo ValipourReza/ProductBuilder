@@ -1,1 +1,13 @@
-<!DOCTYPE html><html lang="fa" dir="rtl" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>محصول جدید</title><link rel="stylesheet" href="/css/app.css"></head><body><nav><b>Product Builder</b><a href="/products">محصولات</a><a href="/features">Feature ها</a></nav><main class="form-page"><h1>ایجاد محصول</h1><form method="post" action="/products"><label>کد محصول<input name="code" required placeholder="LOAN_STANDARD"></label><label>نام محصول<input name="name" required placeholder="تسهیلات عادی"></label><label>توضیحات<textarea name="description" rows="4"></textarea></label><label class="check"><input type="checkbox" name="active" value="true" checked> فعال</label><button class="btn" type="submit">ایجاد محصول</button><a href="/products">انصراف</a></form></main></body></html>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>محصول جدید | ProductBuilder</title><link rel="stylesheet" href="/css/app.css"></head>
+<body><header class="topbar"><a class="brand" href="/dashboard">ProductBuilder</a><nav><a href="/dashboard">داشبورد</a><a class="active" href="/products">محصولات</a><a href="/features">کاتالوگ Feature</a></nav></header>
+<main class="container narrow"><div class="crumb"><a href="/products">محصولات</a><span>←</span><b>محصول جدید</b></div>
+<section class="panel form-card"><div class="panel-head"><div><span class="eyebrow">PRODUCT FACTORY</span><h1>ساخت محصول جدید</h1><p>محصول پایه را تعریف کنید؛ Featureها در مرحله بعد به آن اضافه می‌شوند.</p></div></div>
+<form method="post" action="/products" class="form-grid">
+<label><span>کد محصول *</span><input name="code" required maxlength="100" placeholder="LOAN_MURABAHA"></label>
+<label><span>نام محصول *</span><input name="name" required maxlength="200" placeholder="تسهیلات مرابحه"></label>
+<label><span>نوع محصول *</span><select name="category" required><option th:each="c:${categories}" th:value="${c}" th:text="${c}"></option></select></label>
+<label class="full"><span>توضیحات</span><textarea name="description" rows="4" placeholder="شرح کوتاه محصول و کاربرد آن"></textarea></label>
+<div class="form-actions full"><a class="btn" href="/products">انصراف</a><button class="btn primary" type="submit">ساخت محصول و ورود به Builder ←</button></div>
+</form></section></main></body></html>
