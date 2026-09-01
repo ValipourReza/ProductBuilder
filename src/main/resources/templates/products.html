@@ -1,17 +1,3 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>ProductBuilder | محصولات</title><link rel="stylesheet" th:href="@{/css/app.css}">
-</head>
-<body>
-<header class="topbar"><div class="brand">ProductBuilder</div><nav><a href="/dashboard">داشبورد</a><a class="active" href="/products">محصولات</a><a href="/features">Featureها</a></nav></header>
-<main class="container">
-<section class="hero"><div><span class="eyebrow">PRODUCT CATALOG</span><h1>محصولات بانکی</h1><p>محصولات قابل استفاده در فرایندهای بانکی را ایجاد و پیکربندی کنید.</p></div><a class="btn primary" href="/products/new">+ محصول جدید</a></section>
-<section class="panel" style="margin-top:22px"><div class="panel-head"><h2>کاتالوگ محصولات</h2><span class="muted">تعریف محصول بر اساس Featureهای قابل استفاده مجدد</span></div>
-<div class="table-wrap"><table><thead><tr><th>کد</th><th>محصول</th><th>توضیح</th><th>Featureها</th><th>وضعیت</th><th>عملیات</th></tr></thead>
-<tbody>
-<tr th:each="p:${products}"><td class="code" th:text="${p.code}">LOAN</td><td><strong th:text="${p.name}">تسهیلات</strong></td><td th:text="${p.description}">-</td><td th:text="${p.features.size()}">0</td><td><span class="badge" th:classappend="${p.active?'success':'muted'}" th:text="${p.active?'فعال':'غیرفعال'}">فعال</span></td><td><a class="link" th:href="@{'/products/'+${p.id}}">Builder ←</a></td></tr>
-<tr th:if="${#lists.isEmpty(products)}"><td colspan="6" class="empty">هنوز محصولی تعریف نشده است. اولین محصول را ایجاد کنید.</td></tr>
-</tbody></table></div></section>
-</main></body></html>
+<html lang="fa" dir="rtl" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>محصولات | ProductBuilder</title><link rel="stylesheet" href="/css/app.css"></head>
+<body><header class="topbar"><a class="brand" href="/dashboard">ProductBuilder</a><nav><a href="/dashboard">داشبورد</a><a class="active" href="/products">محصولات</a><a href="/features">کاتالوگ Feature</a></nav></header><main class="container"><section class="hero"><div><span class="eyebrow">PRODUCT CATALOG</span><h1>محصولات بانکی</h1><p>محصولات قابل استفاده در فرایندهای بانکی را بسازید و پیکربندی کنید.</p></div><a class="btn primary" href="/products/new">+ محصول جدید</a></section><div class="toolbar"><div class="search">⌕ <input id="productSearch" placeholder="جستجوی نام یا کد محصول..."></div><span class="result-count" th:text="${products.size()} + ' محصول'"></span></div><section class="product-grid" id="productGrid"><a class="product-card" th:each="p:${products}" th:href="@{'/products/'+${p.id}}"><div class="card-top"><span class="code" th:text="${p.code}"></span><span class="badge" th:classappend="${p.status.name()=='ACTIVE'}?'success':'muted'" th:text="${p.status}"></span></div><h2 th:text="${p.name}"></h2><p th:text="${p.description ?: 'بدون توضیحات'}"></p><div class="card-footer"><span th:text="${p.category}"></span><span><b th:text="${p.features.size()}"></b> Feature</span><span class="arrow">←</span></div></a><div th:if="${#lists.isEmpty(products)}" class="empty-card"><strong>هنوز محصولی ساخته نشده</strong><span>اولین محصول بانکی خود را بسازید.</span><a class="btn primary" href="/products/new">ساخت اولین محصول</a></div></section></main><script>const input=document.getElementById('productSearch');input?.addEventListener('input',()=>{const q=input.value.toLowerCase();document.querySelectorAll('.product-card').forEach(c=>c.style.display=c.innerText.toLowerCase().includes(q)?'':'none')});</script></body></html>
