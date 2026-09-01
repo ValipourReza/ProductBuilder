@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ProductBuilder | داشبورد</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<body>
+<header class="topbar"><div class="brand">ProductBuilder</div><nav><a class="active" href="/dashboard">داشبورد</a><a href="/products">محصولات</a><a href="/features">Featureها</a></nav></header>
+<main class="container">
+<section class="hero"><div><span class="eyebrow">BANKING PRODUCT FACTORY</span><h1>ساخت و مدیریت محصولات بانکی</h1><p>محصول را تعریف کنید، Featureهای آن را انتخاب کنید و پیکربندی محصول را آماده بهره‌برداری کنید.</p></div><a class="btn primary" href="/products/new">+ ایجاد محصول</a></section>
+<section class="stats"><div class="stat"><span>محصولات</span><strong th:text="${#lists.size(products)}">0</strong></div><div class="stat"><span>Featureها</span><strong th:text="${#lists.size(features)}">0</strong></div><div class="stat"><span>محصول فعال</span><strong th:text="${#lists.size(products.?[active])}">0</strong></div></section>
+<section class="panel"><div class="panel-head"><h2>محصولات اخیر</h2><a href="/products">مشاهده همه</a></div><div class="table-wrap"><table><thead><tr><th>کد</th><th>نام محصول</th><th>وضعیت</th><th>عملیات</th></tr></thead><tbody><tr th:each="p:${products}"><td class="code" th:text="${p.code}">LOAN</td><td th:text="${p.name}">تسهیلات</td><td><span class="badge" th:classappend="${p.active?'success':'muted'}" th:text="${p.active?'فعال':'غیرفعال'}">فعال</span></td><td><a class="link" th:href="@{'/products/'+${p.id}}">ساخت محصول ←</a></td></tr><tr th:if="${#lists.isEmpty(products)}"><td colspan="4" class="empty">هنوز محصولی ایجاد نشده است.</td></tr></tbody></table></div></section>
+</main></body></html>
