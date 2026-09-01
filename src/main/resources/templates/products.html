@@ -1,1 +1,17 @@
-<!DOCTYPE html><html lang="fa" dir="rtl" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>محصولات بانکی</title><link rel="stylesheet" href="/css/app.css"></head><body><nav><b>Product Builder</b><a href="/products">محصولات</a><a href="/features">Feature ها</a></nav><main><div class="header"><div><h1>محصولات</h1><p>مدیریت محصولات قابل استفاده در فرایندهای بانکی</p></div><a class="btn" href="/products/new">+ محصول جدید</a></div><div class="grid"><a class="card" th:each="p:${products}" th:href="@{'/products/'+${p.id}}"><span class="code" th:text="${p.code}"></span><h2 th:text="${p.name}"></h2><p th:text="${p.description}"></p><small><span th:text="${p.features.size()}"></span> Feature</small></a></div></main></body></html>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ProductBuilder | محصولات</title><link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header class="topbar"><div class="brand">ProductBuilder</div><nav><a href="/dashboard">داشبورد</a><a class="active" href="/products">محصولات</a><a href="/features">Featureها</a></nav></header>
+<main class="container">
+<section class="hero"><div><span class="eyebrow">PRODUCT CATALOG</span><h1>محصولات بانکی</h1><p>محصولات قابل استفاده در فرایندهای بانکی را ایجاد و پیکربندی کنید.</p></div><a class="btn primary" href="/products/new">+ محصول جدید</a></section>
+<section class="panel" style="margin-top:22px"><div class="panel-head"><h2>کاتالوگ محصولات</h2><span class="muted">تعریف محصول بر اساس Featureهای قابل استفاده مجدد</span></div>
+<div class="table-wrap"><table><thead><tr><th>کد</th><th>محصول</th><th>توضیح</th><th>Featureها</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+<tbody>
+<tr th:each="p:${products}"><td class="code" th:text="${p.code}">LOAN</td><td><strong th:text="${p.name}">تسهیلات</strong></td><td th:text="${p.description}">-</td><td th:text="${p.features.size()}">0</td><td><span class="badge" th:classappend="${p.active?'success':'muted'}" th:text="${p.active?'فعال':'غیرفعال'}">فعال</span></td><td><a class="link" th:href="@{'/products/'+${p.id}}">Builder ←</a></td></tr>
+<tr th:if="${#lists.isEmpty(products)}"><td colspan="6" class="empty">هنوز محصولی تعریف نشده است. اولین محصول را ایجاد کنید.</td></tr>
+</tbody></table></div></section>
+</main></body></html>
