@@ -3,7 +3,6 @@ package ir.valipour.productbuilder.web;
 import ir.valipour.productbuilder.service.FeatureService;
 import ir.valipour.productbuilder.service.ProductService;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -17,10 +16,9 @@ public class DashboardController {
         this.features = features;
     }
 
-    @Transactional(readOnly = true)
     @GetMapping({"/", "/dashboard"})
     public String dashboard(Model model) {
-        model.addAttribute("products", products.findAll());
+        model.addAttribute("products", products.findAllWithFeatures());
         model.addAttribute("features", features.findAll());
         return "dashboard";
     }
